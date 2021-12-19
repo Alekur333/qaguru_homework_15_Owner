@@ -1,35 +1,111 @@
-15. Библиотека Owner. Артём Ерошенко
-https://qa.guru/pl/teach/control/lesson/view?id=219025048
-    Задание
+# Here are a number of automated tests of main page [Л'Этуаль](https://www.letu.ru/)
 
-Конфигурация API тестов
+##Used tools and libraries
 
-Сделать пример конфигурации для API тестов:
+<p  align="left">
+<code>
+<img width="5%" title="Java" src="readme-pics/Java_icon.png">
+<img width="5%" title="JUnit5" src="readme-pics/JUnit5_icon.png">
+<img width="5%" title="Selenide" src="readme-pics/Selenide_icon.svg">
+<img width="5%" title="Gradle" src="readme-pics/Gradle_icon.svg">
+<img width="5%" title="Selenoid" src="readme-pics/Selenoid_icon.svg">
+<img width="5%" title="Github" src="readme-pics/Github_icon.jpg">
+<img width="5%" title="Jenkins" src="readme-pics/Jenkins_icon.svg">
+<img width="5%" title="Allure Report" src="readme-pics/Allure_Report_icon.svg">
+<img width="5%" title="Telegram" src="readme-pics/Telegram_icon.png">
+<img width="5%" title="IntelliJ IDEA" src="readme-pics/Intellij_icon.png">
+</code>
+</p>
 
-1. Базовый url
 
-2. Токен
+# USAGE examples
 
-Токен нужно передавать защищенно:
+### For run remote tests need fill remote.properties or to pass value:
 
-1. Через файл на файловой системе
+* browser (default chrome)
+* browserVersion (default 89.0)
+* browserSize (default 1920x1080)
+* browserMobileView (mobile device name, for example iPhone X)
+* remoteDriverUrl (url address from selenoid or grid)
+* videoStorage (url address where you should get video)
+* threads (number of threads)
 
-2. Через системные property
 
-Конфигурация WEB тестов
+Run tests with filled remote.properties:
+```bash
+gradle clean test
+```
 
-Сделать пример конфигурации для WEB тестов:
+Run tests with not filled remote.properties:
+```bash
+gradle clean 
+-DremoteDriverUrl=https://%s:%s@selenoid.autotests.cloud/wd/hub/ 
+-DvideoStorage=https://selenoid.autotests.cloud/video/ 
+-Dthreads=1 
+test
+```
 
-1. Имя браузера
+Serve report:
+```bash
+allure serve build/allure-results
+```
 
-2. Версия браузера
+###### For further development there are some example tests in [src/test/java/kur/alexei/tests](https://github.com/Alekur333/qaguru_home_work_12_13_fastProjectFullstack/blob/main/src/test/java/kur/alexei/tests/LetuTests.java)
+* remove @Disabled("...") annotation to run desabled tests
+```bash
+gradle clean letuMainPageTest // to run all tests of main page
+```
+```bash
+gradle clean letuParfumeTest // to run tests with tag "parfyumeriya"
+```
 
-3. Локальный или удаленный (RemoteWebDriver)
+# Jenkins
 
-Сделать два вида конфигурационных файлов:
+## Jenkins parameters
 
-1. Для локального запуска на chrome
+<p  align="left">
+<code>
+<img width="80%" title="Jenkins-params" src="readme-pics/jenkins-parameters.png">
+</code>
+</p>
 
-2. Для удаленного запуска на selenoid
+## Jenkins job
 
-Сделать возможность с помощью одной системной переменной переключать запуск с локального на удаленный.
+<p  align="left">
+<code>
+<img width="80%" title="Jenkins-job" src="readme-pics/jenkins-job.png">
+</code>
+</p>
+
+# Allure Report
+
+## Allure overview
+<p  align="left">
+<code>
+<img width="80%" title="Allure overview" src="readme-pics/allure-overview.png">
+</code>
+</p>
+
+## Allure test result
+<p  align="left">
+<code>
+<img width="80%" title="Allure test result" src="readme-pics/allure-test-result.png">
+</code>
+</p>
+
+## Allure video result
+<p  align="left">
+<code>
+<img width="80%" title="Allure video" src="readme-pics/allure-video.gif">
+</code>
+</p>
+
+# Telegram notification
+<p  align="left">
+<code>
+<img width="80%" title="Telegram notification" src="readme-pics/telega-notifi.png">
+</code>
+</p>
+
+
+:heart: <a target="_blank" href="https://www.linkedin.com/in/alexei-kurochkin-5693a01a2/">My linkedIn profile</a><br/>
