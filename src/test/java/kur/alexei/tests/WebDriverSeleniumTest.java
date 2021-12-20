@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class WebDriverTestSelenium {
+public class WebDriverSeleniumTest {
 
     // gradle clean test --tests WebDriverTestSelenium -Dbrowser=FIREFOX -DbaseUrl=https://github.com
 
