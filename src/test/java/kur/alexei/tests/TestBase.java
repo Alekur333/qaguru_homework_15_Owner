@@ -1,39 +1,37 @@
 package kur.alexei.tests;
 
-import kur.alexei.config.Project;
-import kur.alexei.helpers.AllureAttachments;
-import kur.alexei.helpers.DriverSettings;
-import kur.alexei.helpers.DriverUtils;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.junit5.AllureJunit5;
-import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterEach;
+import com.codeborne.selenide.Configuration;
+import kur.alexei.config.WebConfig;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.util.Objects;
 
-@ExtendWith({AllureJunit5.class})
+import static com.codeborne.selenide.Selenide.open;
+
 public class TestBase {
+
     @BeforeAll
-    static void setUp() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-        DriverSettings.configure();
-    }
+    public static void beforeTest() {
+        //  gradle clean test --tests GithubSelenideTest -Denv=localChrome
 
-    @AfterEach
-    public void addAttachments() {
-        String sessionId = DriverUtils.getSessionId();
+//        System.setProperty("env", "localChrome");
+//        System.setProperty("env", "remoteSelenoid");
 
-        AllureAttachments.addScreenshotAs("Last screenshot");
-        AllureAttachments.addPageSource();
-//        AllureAttachments.attachNetwork(); // todo
-        AllureAttachments.addBrowserConsoleLogs();
+        WebConfig webConfig = ConfigFactory.create(WebConfig.class, System.getProperties());
 
-        Selenide.closeWebDriver();
-
-        if (Project.isVideoOn()) {
-            AllureAttachments.addVideo(sessionId);
+        Configuration.browser = webConfig.getBrowser();
+        Configuration.browserVersion = webConfig.getBrowserVersion();
+        Configuration.browserSize = webConfig.getBrowserSize();
+        if (!webConfig.getRemoteWebDriver().equals("")) {
+            Configuration.remote = webConfig.getRemoteWebDriver();
         }
+
+        String baseUrlString = System.getProperty("baseUrl");
+        if (Objects.isNull(baseUrlString)) {
+            baseUrlString = "https://github.com";
+        }
+        open(baseUrlString);
     }
+
 }
