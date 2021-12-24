@@ -14,6 +14,7 @@ public class TestBase {
     @BeforeAll
     public static void beforeTest() {
         //  gradle clean test --tests GithubSelenideTest -Denv=localChrome
+        //  gradle clean test --tests GithubSelenideTest -Denv=remoteSelenoid
 
 //        System.setProperty("env", "localChrome");
 //        System.setProperty("env", "remoteSelenoid");
